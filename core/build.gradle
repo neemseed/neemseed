@@ -1,0 +1,49 @@
+plugins {
+    id 'java'
+    id 'maven'
+    id 'com.gradle.plugin-publish' version '0.9.1'
+}
+
+repositories {
+    mavenCentral()
+    jcenter()
+}
+
+// Uses JDK 8
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+version = '0.01'
+archivesBaseName = 'neemseed'
+
+//Project dependencies
+dependencies {
+
+    compile 'com.google.code.gson:gson:2.3.1'
+    compile 'org.apache.poi:poi:3.9'
+    compile 'org.apache.poi:poi-ooxml:3.9'
+    compile 'net.sf.saxon:saxon:8.7'
+    compile 'com.github.javaparser:javaparser-core:2.2.1'
+
+}
+jar {
+    manifest {
+        attributes 'Implementation-Title': 'Neem Seed',
+                'Implementation-Version': version,
+                'Class-Path': configurations.compile.collect { it.getName() }.join(' '),
+                'Main-Class': 'org.neemseed.NeemSeed'
+
+    }
+}
+
+// uploadArchives {
+//     repositories {
+//         mavenDeployer {
+//             repository(url: "https://oss.sonatype.org/service/local/staging/deploy/maven2") {
+//                 authentication(userName: "admin", password: "admin123")
+//             }
+//             pom.version = "0.01-SNAPSHOT"
+//             pom.artifactId = "neemseed"
+//             pom.groupId = "org.neemseed"
+//         }
+//     }
+// }
